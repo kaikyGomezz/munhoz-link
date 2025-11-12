@@ -8,182 +8,246 @@
   <meta property="og:title" content="Munhoz Running — Links" />
   <meta property="og:description" content="Siga, corra junto e aproveite os benefícios da parceira." />
   <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#0f172a" />
+  <meta name="theme-color" content="#0a0e16" />
   <style>
+    /* =====================
+       Liquid Glass aesthetic
+       ===================== */
     :root{
-      --bg:#030712;
-      --glass:#0b1224cc;
-      --text:#e6eaf3;
-      --muted:#b1b8c9;
-      --accent:#22c55e;
-      --accent-2:#38bdf8;
-      --ring:rgba(56,189,248,.45);
-      --border:rgba(148,163,184,.18);
-      --shadow:0 20px 60px rgba(0,0,0,.5);
+      --bg-1:#06080f;         /* base */
+      --bg-2:#0a0e16;         /* depth */
+      --glass:rgba(255,255,255,.06);
+      --stroke:rgba(255,255,255,.18);
+      --stroke-2:rgba(255,255,255,.10);
+      --specular:rgba(255,255,255,.55); /* highlight */
+      --text:#eaf2ff;         /* texto principal */
+      --muted:#a9b2c8;        /* texto secundário */
+      --accent:#63b3ff;       /* azul líquido */
+      --accent-2:#9bf0ff;     /* ciano */
+      --ring:rgba(147,197,253,.45);
+      --shadow:0 30px 80px rgba(0,0,0,.55);
     }
     *,*:before,*:after{box-sizing:border-box}
     html,body{height:100%}
-    body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";color:var(--text);background:var(--bg);overflow-x:hidden;}
-    .stage{position:fixed; inset:0; overflow:hidden; z-index:-2}
-    .bg-video{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:brightness(.55) saturate(1.05);}
-    .bg-fallback{position:absolute; inset:0; width:100%; height:100%; background:radial-gradient(1200px 600px at 15% -10%, rgba(56,189,248,.25), transparent 60%), radial-gradient(1000px 500px at 110% 10%, rgba(34,197,94,.22), transparent 60%), linear-gradient(180deg,#070b18,#0a1123 45%,#070b18)}
-    .overlay-gradient{position:absolute; inset:0; background: radial-gradient(1000px 500px at 50% 0%, rgba(0,0,0,.2), transparent 60%), linear-gradient(180deg, rgba(0,0,0,.25), transparent 30%, rgba(0,0,0,.45));}
-    .parallax{position:fixed; inset:0; pointer-events:none; z-index:-1}
-    .layer{position:absolute; inset:0; background-repeat:no-repeat; background-size:cover; mix-blend-mode:screen; opacity:.25;}
-    .layer.speed-1{background-image: radial-gradient(1200px 400px at 10% 20%, rgba(34,197,94,.35), transparent 60%);}  
-    .layer.speed-2{background-image: radial-gradient(800px 300px at 85% 30%, rgba(56,189,248,.35), transparent 60%);}  
-    .layer.noise{background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.04"/></svg>'); mix-blend-mode:overlay; opacity:.5}
-    .container{min-height:100%; display:grid; place-items:center; padding:24px}
-    .card{width:min(860px,100%);background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015));border:1px solid var(--border); border-radius:28px; padding:28px; backdrop-filter: blur(8px);box-shadow:var(--shadow); transform-style:preserve-3d; will-change:transform;}
-    .header{display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:center}
-    .avatar{width:96px;height:96px;border-radius:24px;overflow:hidden;position:relative;box-shadow:0 10px 30px rgba(0,0,0,.35)}
-    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
-    .badge{position:absolute; right:6px; bottom:6px; background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#04111f; font-weight:900; border-radius:10px; padding:2px 8px; font-size:.75rem}
-    h1{margin:0; font-size:1.8rem; letter-spacing:.2px}
+    body{
+      margin:0; color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1600px 800px at 15% -10%, rgba(99,179,255,.20), transparent 55%),
+                  radial-gradient(1400px 700px at 115% 10%, rgba(155,240,255,.16), transparent 55%),
+                  linear-gradient(180deg,var(--bg-1),var(--bg-2));
+      overflow-x:hidden;
+    }
+
+    /* ======= background layers (video + blobs) ======= */
+    .stage{position:fixed; inset:0; overflow:hidden; z-index:-3}
+    .bg-video{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:brightness(.55) saturate(1.02) contrast(1.05)}
+    .overlay{position:absolute; inset:0; background:
+      radial-gradient(60% 80% at 50% -10%, rgba(255,255,255,.08), transparent 60%),
+      linear-gradient(180deg, rgba(0,0,0,.35), transparent 30%, rgba(0,0,0,.55));}
+
+    /* Glass morphing blobs */
+    .blobs{position:fixed; inset:0; pointer-events:none; z-index:-2; filter: blur(40px) saturate(120%); opacity:.55}
+    .blob{position:absolute; width:520px; height:520px; left:10%; top:10%;
+      background: radial-gradient(circle at 30% 30%, rgba(155,240,255,.9), rgba(99,179,255,.2) 60%, transparent 70%);
+      animation: float1 18s ease-in-out infinite alternate; mix-blend-mode:screen}
+    .blob.b2{left:auto; right:8%; top:18%; width:560px; height:560px;
+      background: radial-gradient(circle at 60% 40%, rgba(99,179,255,.85), rgba(155,240,255,.15) 60%, transparent 70%);
+      animation: float2 20s ease-in-out infinite alternate}
+    @keyframes float1{0%{transform:translate3d(0,0,0) scale(1)} 100%{transform:translate3d(-30px,20px,0) scale(1.08)}}
+    @keyframes float2{0%{transform:translate3d(0,0,0) scale(1)} 100%{transform:translate3d(30px,-20px,0) scale(1.06)}}
+
+    /* ======= layout ======= */
+    .container{min-height:100%; display:grid; place-items:center; padding:32px}
+
+    .card{
+      width:min(880px,100%);
+      position:relative;
+      border-radius:28px;
+      background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.03));
+      border:1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      -webkit-backdrop-filter: blur(18px) saturate(120%);
+      backdrop-filter: blur(18px) saturate(120%);
+      overflow:hidden;
+    }
+    /* inner gloss highlight */
+    .card:before{
+      content:""; position:absolute; inset:0; pointer-events:none;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.22), transparent 40%),
+        radial-gradient(120% 60% at 50% -10%, rgba(255,255,255,.20), transparent 55%);
+      mix-blend-mode:soft-light; opacity:.9;
+    }
+    .card-inner{position:relative; padding:28px}
+
+    /* header */
+    .header{display:grid; grid-template-columns:auto 1fr; gap:18px; align-items:center}
+    .avatar{width:108px; height:108px; border-radius:26px; overflow:hidden; position:relative;
+      border:1px solid var(--stroke-2); box-shadow: 0 10px 40px rgba(0,0,0,.35)}
+    .avatar img{width:100%; height:100%; object-fit:cover; display:block; filter:saturate(112%)}
+    .shine{position:absolute; inset:0; background: linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,0) 40%); mix-blend-mode:overlay}
+    .badge{position:absolute; right:8px; bottom:8px; background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color:#04111f; font-weight:900; border-radius:12px; padding:4px 10px; font-size:.75rem; letter-spacing:.6px}
+    h1{margin:0; font-size:1.9rem; letter-spacing:.2px}
     .sub{margin:6px 0 0; color:var(--muted)}
-    .coupon{margin:18px 0 8px; padding:12px 14px; border-radius:16px; background:rgba(34,197,94,.10); border:1px dashed rgba(34,197,94,.45); display:flex; align-items:center; gap:10px; flex-wrap:wrap}
-    .coupon strong{color:#86efac; letter-spacing:.6px}
-    .copy{margin-left:auto; appearance:none; cursor:pointer; background:rgba(13,18,34,.7); color:var(--text); border:1px solid var(--border); padding:8px 12px; border-radius:10px; font-weight:700}
-    .copy:hover{box-shadow:0 0 0 4px var(--ring)}
-    .links{margin-top:18px; display:grid; gap:14px}
-    .btn{position:relative; display:grid; grid-template-columns:28px 1fr auto; gap:12px; align-items:center; width:100%; text-decoration:none; color:var(--text); background:rgba(9,14,28,.72); border:1px solid var(--border); padding:16px 18px; border-radius:16px; font-weight:800; letter-spacing:.2px; overflow:hidden; transform:translateZ(20px);}
-    .btn:hover{box-shadow:0 0 0 4px var(--ring)}
-    .btn .tag{font-size:.8rem; color:var(--muted); font-weight:700}
-    .icon{width:24px;height:24px;opacity:.95}
+
+    /* coupon */
+    .coupon{margin:20px 0 10px; padding:14px 14px; border-radius:18px;
+      background: linear-gradient(180deg, rgba(155,240,255,.10), rgba(99,179,255,.06));
+      border:1px dashed rgba(155,240,255,.45);
+      display:flex; align-items:center; gap:12px; flex-wrap:wrap}
+    .coupon strong{color:#c9f6ff; letter-spacing:.8px}
+    .copy{margin-left:auto; appearance:none; cursor:pointer; background: rgba(255,255,255,.06);
+      color:var(--text); border:1px solid var(--stroke); padding:9px 12px; border-radius:12px; font-weight:800;
+      transition: box-shadow .2s ease, transform .06s ease}
+    .copy:hover{box-shadow:0 0 0 5px var(--ring)}
+    .copy:active{transform: translateY(1px)}
+
+    /* links */
+    .links{margin-top:22px; display:grid; gap:14px}
+    .btn{
+      position:relative; display:grid; grid-template-columns:32px 1fr auto; gap:14px; align-items:center;
+      width:100%; text-decoration:none; color:var(--text);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+      border:1px solid var(--stroke); padding:18px 18px; border-radius:18px; font-weight:900; letter-spacing:.2px; overflow:hidden;
+      -webkit-backdrop-filter: blur(10px) saturate(130%);
+      backdrop-filter: blur(10px) saturate(130%);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.02), 0 10px 30px rgba(0,0,0,.25);
+    }
+    .btn:before{ /* glossy strip */
+      content:""; position:absolute; inset:-1px; border-radius:inherit;
+      background: linear-gradient(180deg, rgba(255,255,255,.25), transparent 35%);
+      mix-blend-mode:soft-light; pointer-events:none;
+    }
+    .btn:hover{box-shadow: 0 0 0 6px var(--ring), inset 0 0 0 1px rgba(255,255,255,.02)}
+    .tag{font-size:.82rem; color:var(--muted); font-weight:800}
+    .icon{width:26px; height:26px; opacity:.95}
     .chev{opacity:.5}
+
+    /* ripple shimmer */
     .ripple{position:absolute; border-radius:999px; transform:translate(-50%,-50%); pointer-events:none; background:radial-gradient(circle, rgba(255,255,255,.35), rgba(255,255,255,0) 60%); animation:ripple .6s ease-out forwards}
-    @keyframes ripple{from{width:0;height:0;opacity:.75} to{width:480px;height:480px;opacity:0}}
-    @media (hover:hover){.card{transition:transform .18s ease}.card.tilt{transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}}
-    @media (prefers-reduced-motion: reduce){.card,.btn{transition:none}.ripple{display:none}}
-    .footer{margin-top:20px; text-align:center; color:var(--muted); font-size:.9rem}
+    @keyframes ripple{from{width:0;height:0;opacity:.75} to{width:520px;height:520px;opacity:0}}
+
+    /* tilt (desktop) */
+    @media (hover:hover){
+      .card{transition:transform .18s ease}
+      .card.tilt{transform:perspective(1200px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
+    }
+
+    @media (max-width:480px){
+      .avatar{width:96px;height:96px;border-radius:22px}
+      h1{font-size:1.6rem}
+    }
+
+    .footer{margin:22px 4px 8px; text-align:center; color:var(--muted); font-size:.92rem}
     .sponsor{display:inline-flex; align-items:center; gap:8px}
   </style>
 </head>
 <body>
+  <!-- Background video + overlays -->
   <div class="stage" aria-hidden="true">
-    <video class="bg-video" src="assets/bg.mp4" poster="assets/poster.jpg" autoplay muted loop playsinline preload="auto">
+    <video class="bg-video" id="bgvid" autoplay muted loop playsinline preload="auto" poster="assets/poster.jpg">
       <source src="assets/bg.webm" type="video/webm" />
       <source src="assets/bg.mp4" type="video/mp4" />
     </video>
-    <div class="bg-fallback"></div>
-    <div class="overlay-gradient"></div>
+    <div class="overlay"></div>
   </div>
-  <div class="parallax" aria-hidden="true">
-    <div class="layer speed-1" data-depth="0.03"></div>
-    <div class="layer speed-2" data-depth="0.06"></div>
-    <div class="layer noise" data-depth="0.00"></div>
+  
+  <!-- Liquid blobs -->
+  <div class="blobs" aria-hidden="true">
+    <div class="blob"></div>
+    <div class="blob b2"></div>
   </div>
+
   <div class="container">
     <main class="card" id="card">
-      <section class="header">
-        <div class="avatar">
-          <img src="assets/avatar.jpg" alt="Foto de perfil do Munhoz Running"/>
-          <span class="badge">RUN</span>
+      <div class="card-inner">
+        <section class="header">
+          <div class="avatar">
+            <img src="assets/avatar.jpg" alt="Foto de perfil do Munhoz Running"/>
+            <span class="shine"></span>
+            <span class="badge">RUN</span>
+          </div>
+          <div>
+            <h1>Munhoz Running</h1>
+            <p class="sub">Links oficiais • treinos, motivação e benefícios da parceira</p>
+          </div>
+        </section>
+
+        <div class="coupon" data-coupon="PEDRO15">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h3a2 2 0 0 0 2 2 2 2 0 1 1 0 4 2 2 0 0 0-2 2H5a2 2 0 0 1-2-2V7Zm18 0v4a2 2 0 1 1 0 4v2a2 2 0 0 1-2 2h-3a2 2 0 0 0-2-2 2 2 0 1 1 0-4 2 2 0 0 0 2-2h3a2 2 0 0 1 2-2V7Z" stroke="#c9f6ff" stroke-width="1.5"/></svg>
+          <span>Use o cupom <strong id="coupon-code">PEDRO15</strong> na <a href="https://www.instagram.com/carbri.br?utm_source=linkbio&utm_medium=instagram&utm_campaign=linktree" target="_blank" rel="noopener">loja parceira</a>.</span>
+          <button class="copy" id="copy-coupon" type="button">Copiar</button>
         </div>
-        <div>
-          <h1>Munhoz Running</h1>
-          <p class="sub">Links oficiais • treinos, motivação e benefícios da parceira</p>
-        </div>
-      </section>
-      <div class="coupon" data-coupon="PEDRO15">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h3a2 2 0 0 0 2 2 2 2 0 1 1 0 4 2 2 0 0 0-2 2H5a2 2 0 0 1-2-2V7Zm18 0v4a2 2 0 1 1 0 4v2a2 2 0 0 1-2 2h-3a2 2 0 0 0-2-2 2 2 0 1 1 0-4 2 2 0 0 0 2-2h3a2 2 0 0 1 2-2V7Z" stroke="#86efac" stroke-width="1.5"/></svg>
-        <span>Use o cupom <strong id="coupon-code">PEDRO15</strong> na <a href="https://www.instagram.com/carbri.br?utm_source=linkbio&utm_medium=instagram&utm_campaign=linktree" target="_blank" rel="noopener">loja parceira</a>.</span>
-        <button class="copy" id="copy-coupon" type="button">Copiar</button>
+
+        <nav class="links" aria-label="Links principais">
+          <a class="btn" href="https://www.instagram.com/p.munhozz?utm_source=linkbio&utm_medium=instagram&utm_campaign=linktree" target="_blank" rel="noopener">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4Z" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+            <span>@p.munhozz</span>
+            <span class="chev">↗</span>
+          </a>
+
+          <a class="btn" href="https://www.instagram.com/cold.running?utm_source=linkbio&utm_medium=instagram&utm_campaign=linktree" target="_blank" rel="noopener">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4Z" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+            <span>@cold.running</span>
+            <span class="tag">motivação</span>
+          </a>
+
+          <a class="btn" href="https://strava.app.link/k2bt4KNneYb?utm_source=linkbio&utm_medium=instagram&utm_campaign=linktree" target="_blank" rel="noopener">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M13.9 17.5 12 21l-1.9-3.5h3.8Zm-7.5-11L12 21l5.6-14.5h-3.8L12 12.5 9.7 6.5H6.4Z" fill="currentColor"/></svg>
+            <span>Strava</span>
+            <span class="tag">treinos</span>
+          </a>
+
+          <a class="btn" href="https://www.tiktok.com/@munhozzrunning?utm_source=linkbio&utm_medium=instagram&utm_campaign=linktree" target="_blank" rel="noopener">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14.5 3v2.2a5.8 5.8 0 0 0 5 1.3v2.6a8.4 8.4 0 0 1-5-1.5v6.7a5.6 5.6 0 1 1-5.6-5.6c.3 0 .6 0 .9.1V11a2.9 2.9 0 1 0 2.9 2.9V3h1.8Z" fill="currentColor"/></svg>
+            <span>TikTok</span>
+            <span class="tag">clipes & dicas</span>
+          </a>
+
+          <a class="btn" href="https://www.instagram.com/carbri.br?utm_source=linkbio&utm_medium=instagram&utm_campaign=linktree" target="_blank" rel="noopener">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 9h18l-2 10a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L3 9Zm0 0 2-5h14l2 5M9 13h6" stroke="currentColor" stroke-width="1.4"/></svg>
+            <span>Loja Parceira (Carbri)</span>
+            <span class="tag">descontos</span>
+          </a>
+        </nav>
+
+        <p class="footer">
+          <span class="sponsor">Apoio: <a href="https://www.instagram.com/carbri.br?utm_source=linkbio&utm_medium=instagram&utm_campaign=linktree" target="_blank" rel="noopener">@carbri.br</a></span>
+        </p>
       </div>
-      <nav class="links" aria-label="Links principais">
-        <a class="btn" href="https://www.instagram.com/p.munhozz?utm_source=linkbio&utm_medium=instagram&utm_campaign=linktree" target="_blank" rel="noopener">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4Z" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
-          <span>@p.munhozz</span>
-          <span class="chev">↗</span>
-        </a>
-        <a class="btn" href="https://www.instagram.com/cold.running?utm_source=linkbio&utm_medium=instagram&utm_campaign=linktree" target="_blank" rel="noopener">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4Z" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
-          <span>@cold.running</span>
-          <span class="tag">motivação</span>
-        </a>
-        <a class="btn" href="https://strava.app.link/k2bt4KNneYb?utm_source=linkbio&utm_medium=instagram&utm_campaign=linktree" target="_blank" rel="noopener">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M13.9 17.5 12 21l-1.9-3.5h3.8Zm-7.5-11L12 21l5.6-14.5h-3.8L12 12.5 9.7 6.5H6.4Z" fill="currentColor"/></svg>
-          <span>Strava</span>
-          <span class="tag">treinos</span>
-        </a>
-        <a class="btn" href="https://www.tiktok.com/@munhozzrunning?utm_source=linkbio&utm_medium=instagram&utm_campaign=linktree" target="_blank" rel="noopener">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14.5 3v2.2a5.8 5.8 0 0 0 5 1.3v2.6a8.4 8.4 0 0 1-5-1.5v6.7a5.6 5.6 0 1 1-5.6-5.6c.3 0 .6 0 .9.1V11a2.9 2.9 0 1 0 2.9 2.9V3h1.8Z" fill="currentColor"/></svg>
-          <span>TikTok</span>
-          <span class="tag">clipes & dicas</span>
-        </a>
-        <a class="btn" href="https://www.instagram.com/carbri.br?utm_source=linkbio&utm_medium=instagram&utm_campaign=linktree" target="_blank" rel="noopener">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 9h18l-2 10a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L3 9Zm0 0 2-5h14l2 5M9 13h6" stroke="currentColor" stroke-width="1.4"/></svg>
-          <span>Loja Parceira (Carbri)</span>
-          <span class="tag">descontos</span>
-        </a>
-      </nav>
-      <p class="footer">
-        <span class="sponsor">Apoio: <a href="https://www.instagram.com/carbri.br?utm_source=linkbio&utm_medium=instagram&utm_campaign=linktree" target="_blank" rel="noopener">@carbri.br</a></span>
-      </p>
     </main>
   </div>
+
   <script>
-    (function(){
-      const btn=document.getElementById('copy-coupon');
-      const codeEl=document.getElementById('coupon-code');
-      if(!btn||!codeEl) return;
-      btn.addEventListener('click',async()=>{
-        const code=codeEl.textContent.trim();
-        try{await navigator.clipboard.writeText(code);}catch(e){}
-        ripple(btn);
-        const prev=btn.textContent; btn.textContent='Copiado!';
-        setTimeout(()=>btn.textContent=prev,1200);
-      });
+    // autoplay com fallback em webviews
+    (async()=>{
+      const v=document.getElementById('bgvid');
+      if(!v) return;
+      try{ await v.play(); }
+      catch(e){
+        const unlock=async()=>{ try{await v.play()}catch(_){}; document.removeEventListener('pointerdown',unlock); document.removeEventListener('touchstart',unlock); };
+        document.addEventListener('pointerdown', unlock, {once:true});
+        document.addEventListener('touchstart', unlock, {once:true, passive:true});
+      }
     })();
+
+    // ripple on press
     function ripple(el){
-      const r=document.createElement('span');
-      r.className='ripple';
+      const r=document.createElement('span'); r.className='ripple';
       const rect=el.getBoundingClientRect();
       const x=(window.event?.clientX || (rect.left+rect.width/2)) - rect.left;
       const y=(window.event?.clientY || (rect.top+rect.height/2)) - rect.top;
-      r.style.left=x+'px'; r.style.top=y+'px';
-      el.appendChild(r);
+      r.style.left=x+'px'; r.style.top=y+'px'; el.appendChild(r);
       r.addEventListener('animationend',()=>r.remove());
     }
-    document.querySelectorAll('.btn').forEach(b=>{
-      b.addEventListener('pointerdown',()=>ripple(b));
-    });
-    (function(){
-      const card=document.getElementById('card');
-      if(!card) return;
-      const max=6;
-      function onMove(e){
-        const r=card.getBoundingClientRect();
-        const px=(e.clientX - r.left)/r.width - .5;
-        const py=(e.clientY - r.top)/r.height - .5;
-        card.style.setProperty('--ry', (-px*max)+'deg');
-        card.style.setProperty('--rx', (py*max)+'deg');
-        card.classList.add('tilt');
-      }
-      function onLeave(){ card.classList.remove('tilt'); card.style.setProperty('--ry','0deg'); card.style.setProperty('--rx','0deg'); }
-      if(matchMedia('(hover:hover)').matches){
-        card.addEventListener('mousemove', onMove);
-        card.addEventListener('mouseleave', onLeave);
-      }
-    })();
-    (function(){
-      const layers=[...document.querySelectorAll('.layer')];
-      const damp=(v,a=.08)=>{d.x+= (v.x-d.x)*a; d.y+= (v.y-d.y)*a; return d};
-      let t={x:0,y:0}, d={x:0,y:0};
-      window.addEventListener('mousemove', e=>{ const x=(e.clientX/window.innerWidth - .5)*2; const y=(e.clientY/window.innerHeight - .5)*2; t={x,y}; });
-      window.addEventListener('touchmove', e=>{ const tch=e.touches[0]; const x=(tch.clientX/window.innerWidth - .5)*2; const y=(tch.clientY/window.innerHeight - .5)*2; t={x,y}; }, {passive:true});
-      function frame(){
-        const s=window.scrollY||0; const sm = Math.min(s/600,1);
-        const v=damp(t);
-        for(const L of layers){
-          const depth=parseFloat(L.dataset.depth||'0.03');
-          const tx=v.x*depth*30; const ty=v.y*depth*30 + sm*depth*40;
-          L.style.transform=`translate3d(${tx}px, ${ty}px, 0)`;
-        }
-        requestAnimationFrame(frame);
-      }
-      frame();
-    })();
+    document.querySelectorAll('.btn').forEach(b=> b.addEventListener('pointerdown',()=>ripple(b)) );
+
+    // tilt (desktop)
+    (function(){ const card=document.getElementById('card'); if(!card) return; const max=6; function onMove(e){ const r=card.getBoundingClientRect(); const px=(e.clientX-r.left)/r.width-.5; const py=(e.clientY-r.top)/r.height-.5; card.style.setProperty('--ry', (-px*max)+'deg'); card.style.setProperty('--rx', (py*max)+'deg'); card.classList.add('tilt'); } function onLeave(){ card.classList.remove('tilt'); card.style.setProperty('--ry','0deg'); card.style.setProperty('--rx','0deg'); } if(matchMedia('(hover:hover)').matches){ card.addEventListener('mousemove',onMove); card.addEventListener('mouseleave',onLeave); } })();
+
+    // copiar cupom
+    (function(){ const btn=document.getElementById('copy-coupon'); const codeEl=document.getElementById('coupon-code'); if(!btn||!codeEl) return; btn.addEventListener('click',async()=>{ try{ await navigator.clipboard.writeText(codeEl.textContent.trim()); }catch(_){} ripple(btn); const prev=btn.textContent; btn.textContent='Copiado!'; setTimeout(()=>btn.textContent=prev,1100); }); })();
   </script>
 </body>
 </html>
