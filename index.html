@@ -9,19 +9,12 @@
   <style>
     :root{
       /* Paleta roxo metálico */
-      --bg-1:#0b0613;            /* base quase preta com violeta */
-      --bg-2:#130a22;            /* profundidade */
-      --violet:#6d28d9;          /* roxo principal (metálico) */
-      --violet-2:#7c3aed;        /* variação */
-      --violet-3:#a78bfa;        /* highlight */
-      --text:#f5f5ff;            /* texto */
-      --muted:#c8c3d8;           /* texto secundário */
-      --stroke:rgba(255,255,255,.18);
-      --stroke-2:rgba(255,255,255,.12);
-      --ring:rgba(167,139,250,.45);
-      --shadow:0 40px 100px rgba(0,0,0,.6);
+      --bg-1:#0b0613; --bg-2:#130a22;
+      --violet:#6d28d9; --violet-2:#7c3aed; --violet-3:#a78bfa;
+      --text:#f5f5ff; --muted:#c8c3d8;
+      --stroke:rgba(255,255,255,.18); --stroke-2:rgba(255,255,255,.12);
+      --ring:rgba(167,139,250,.45); --shadow:0 40px 100px rgba(0,0,0,.6);
     }
-
     *,*:before,*:after{box-sizing:border-box}
     html,body{height:100%}
     body{
@@ -34,7 +27,7 @@
       overflow-x:hidden;
     }
 
-    /* ======= Plano de fundo com vídeo ======= */
+    /* ===== Fundo com vídeo ===== */
     .stage{position:fixed; inset:0; overflow:hidden; z-index:-3}
     .bg-video{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
       filter:brightness(.55) saturate(1.06) contrast(1.05)}
@@ -42,7 +35,7 @@
       radial-gradient(70% 80% at 50% -10%, rgba(255,255,255,.08), transparent 60%),
       linear-gradient(180deg, rgba(0,0,0,.35), transparent 35%, rgba(0,0,0,.55));}
 
-    /* ======= reflexos líquidos “metal” ======= */
+    /* ===== Reflexos líquidos ===== */
     .sheen{position:fixed; inset:0; pointer-events:none; z-index:-2; filter:blur(40px) saturate(120%); opacity:.55}
     .s1,.s2{position:absolute; border-radius:50%; mix-blend-mode:screen}
     .s1{width:520px;height:520px;left:8%;top:8%;
@@ -54,22 +47,26 @@
     @keyframes float1{0%{transform:translate3d(0,0,0) scale(1)}100%{transform:translate3d(-30px,20px,0) scale(1.08)}}
     @keyframes float2{0%{transform:translate3d(0,0,0) scale(1)}100%{transform:translate3d(30px,-20px,0) scale(1.06)}}
 
-    /* ======= layout ======= */
+    /* ===== Layout ===== */
     .container{min-height:100%; display:grid; place-items:center; padding:32px}
     .card{
       width:min(900px,100%); position:relative; border-radius:28px;
-      background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+      /* FOTO de fundo com gradiente preto por cima */
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.55)),
+        url('assets/pedro.jpg') center/cover no-repeat;
+      /* vidro por cima da foto */
       border:1px solid var(--stroke);
       backdrop-filter:blur(18px) saturate(125%);
       box-shadow:var(--shadow);
       overflow:hidden;
       transform-style:preserve-3d; will-change:transform;
     }
-    .card::before{ /* brilho interno suave */
+    .card::before{
       content:""; position:absolute; inset:0; pointer-events:none;
       background:
-        linear-gradient(180deg, rgba(255,255,255,.22), transparent 40%),
-        radial-gradient(120% 60% at 50% -10%, rgba(255,255,255,.20), transparent 55%);
+        linear-gradient(180deg, rgba(255,255,255,.20), transparent 40%),
+        radial-gradient(120% 60% at 50% -10%, rgba(255,255,255,.16), transparent 55%);
       mix-blend-mode:soft-light; opacity:.9;
     }
     .inner{position:relative; padding:28px}
@@ -84,7 +81,7 @@
     h1{margin:0; font-size:1.9rem; letter-spacing:.2px}
     .sub{margin:6px 0 0; color:var(--muted)}
 
-    /* ======= Cupom — roxo metálico ======= */
+    /* ===== Cupom ===== */
     .coupon{
       margin:24px 0 12px; padding:20px 18px; border-radius:20px;
       background:linear-gradient(145deg, rgba(167,139,250,.20), rgba(124,58,237,.10));
@@ -118,7 +115,7 @@
       color:#fff;
     }
 
-    /* ======= Links ======= */
+    /* ===== Links ===== */
     .links{margin-top:22px; display:grid; gap:14px}
     .btn{
       position:relative;
@@ -133,7 +130,8 @@
     }
     .btn::before{content:""; position:absolute; inset:-1px; border-radius:inherit;
       background:linear-gradient(180deg, rgba(255,255,255,.28), transparent 35%); mix-blend-mode:soft-light; pointer-events:none}
-    .btn:hover{ box-shadow:0 0 0 6px var(--ring), 0 14px 50px rgba(109,40,217,.35) }
+    /* ✅ sem borda roxa no hover */
+    .btn:hover{ box-shadow:none; filter:brightness(1.04) }
     .tag{font-size:.82rem; color:var(--muted); font-weight:800}
     .footer{margin:22px 4px 8px; text-align:center; color:var(--muted); font-size:.92rem}
 
@@ -232,7 +230,7 @@
       });
     })();
 
-    // Tilt/parallax por mouse (desktop)
+    // Tilt por mouse (desktop)
     (function(){
       const card=document.getElementById('card'); if(!card) return;
       const max=6;
@@ -251,38 +249,59 @@
       }
     })();
 
-    // Parallax por giroscópio (mobile)
+    // Parallax pelo GIROSCÓPIO (mobile) — automático onde o sistema permitir.
     (function(){
       const layers=[...document.querySelectorAll('.sheen .s1, .sheen .s2')];
+      const card=document.getElementById('card');
       let enabled=false;
+
       const apply=(x,y)=>{
+        // move reflexos
         for(const L of layers){
           const depth = L.classList.contains('s2') ? 0.06 : 0.03;
           const tx = x*depth*30; const ty = y*depth*30;
           L.style.transform=`translate3d(${tx}px, ${ty}px, 0)`;
         }
+        // inclina o card levemente
+        const max=6;
+        card && card.style.setProperty('--ry', (-x*max)+'deg');
+        card && card.style.setProperty('--rx', (y*max)+'deg');
+        card && card.classList.add('tilt');
       };
-      // fallback por scroll + touch
+
+      // Tenta ativar automaticamente (Android costuma permitir)
+      function tryEnable(){
+        enabled=true;
+        if(typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function'){
+          // iOS exige gesto do usuário — desbloqueia no primeiro toque
+          enabled=false;
+          const unlock=()=>{
+            DeviceMotionEvent.requestPermission().then(s=>{
+              if(s==='granted'){ enabled=true; }
+            }).catch(()=>{}).finally(()=>{
+              document.removeEventListener('touchstart',unlock);
+              document.removeEventListener('pointerdown',unlock);
+            });
+          };
+          document.addEventListener('touchstart', unlock, {once:true, passive:true});
+          document.addEventListener('pointerdown', unlock, {once:true});
+        }
+      }
+      tryEnable();
+
+      // Fallback por touch move (caso o sensor seja bloqueado)
       window.addEventListener('touchmove', e=>{
         const t=e.touches[0];
         const x=(t.clientX/window.innerWidth - .5)*2;
         const y=(t.clientY/window.innerHeight - .5)*2;
         apply(x,y);
       }, {passive:true});
-      // giroscópio (iOS pede permissão)
-      function enableGyro(){
-        if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function'){
-          DeviceMotionEvent.requestPermission().then(resp=>{
-            if(resp==='granted'){ enabled=true; }
-          }).catch(()=>{});
-        } else { enabled=true; }
-      }
-      // ativa ao primeiro toque
-      document.addEventListener('pointerdown', enableGyro, {once:true});
+
+      // Leituras do giroscópio / orientação
       window.addEventListener('deviceorientation', (e)=>{
         if(!enabled || e.beta===null || e.gamma===null) return;
-        const x = (e.gamma || 0) / 45;  // -45..45
-        const y = (e.beta  || 0) / 45;  // -45..45
+        const x = (e.gamma || 0) / 45;  // -45..45 → -1..1
+        const y = (e.beta  || 0) / 45;
         apply(x,y);
       });
     })();
