@@ -5,7 +5,7 @@ Como usar:
 2) Coloque o seu vídeo de fundo convertido para MP4 (H.264) em: assets/bg.mp4
    (opcional: assets/bg.webm para melhor compressão).
 3) Ative o GitHub Pages: Settings → Pages → Deploy from a branch → Branch: main → Save.
-4) Acesse a URL gerada: https://SEU_USUARIO.github.io/munhoz-link/
+4) Acesse a URL gerada: https://kaikyGomezz.github.io/munhoz-link/
 
 Dicas de vídeo:
 - Duração: 5–15s, loop contínuo.
