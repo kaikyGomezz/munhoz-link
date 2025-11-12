@@ -1,121 +1,291 @@
 <!doctype html>
 <html lang="pt-br">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Munhoz Running — Links</title>
-<meta name="theme-color" content="#0a0e16" />
-<style>
-:root{
-  --bg-1:#06080f;--bg-2:#0a0e16;
-  --text:#eaf2ff;--muted:#a9b2c8;
-  --accent:#63b3ff;--accent-2:#9bf0ff;
-  --ring:rgba(147,197,253,.45);
-}
-*,*:before,*:after{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial;
-  background:radial-gradient(1600px 800px at 15% -10%,rgba(99,179,255,.20),transparent 55%),
-             radial-gradient(1400px 700px at 115% 10%,rgba(155,240,255,.16),transparent 55%),
-             linear-gradient(180deg,var(--bg-1),var(--bg-2));
-  overflow-x:hidden;display:grid;place-items:center;min-height:100vh;
-}
-.stage{position:fixed;inset:0;overflow:hidden;z-index:-3}
-.bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.55) saturate(1.02) contrast(1.05)}
-.overlay{position:absolute;inset:0;background:radial-gradient(60% 80% at 50% -10%,rgba(255,255,255,.08),transparent 60%),linear-gradient(180deg,rgba(0,0,0,.35),transparent 30%,rgba(0,0,0,.55))}
-.card{width:min(880px,100%);border-radius:28px;background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(18px) saturate(120%);padding:28px;box-shadow:0 30px 80px rgba(0,0,0,.55)}
-.header{display:flex;align-items:center;gap:18px}
-.avatar{width:108px;height:108px;border-radius:26px;overflow:hidden;border:1px solid rgba(255,255,255,.10)}
-.avatar img{width:100%;height:100%;object-fit:cover;display:block}
-.badge{position:absolute;right:8px;bottom:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#04111f;font-weight:900;border-radius:12px;padding:4px 10px;font-size:.75rem}
-h1{margin:0;font-size:1.9rem}
-.sub{margin:6px 0 0;color:var(--muted)}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Munhoz Running — Links</title>
+  <meta name="theme-color" content="#0b0613" />
+  <meta name="description" content="Links oficiais do Munhoz Running: Instagram, Strava, TikTok e loja parceira." />
+  <style>
+    :root{
+      /* Paleta roxo metálico */
+      --bg-1:#0b0613;            /* base quase preta com violeta */
+      --bg-2:#130a22;            /* profundidade */
+      --violet:#6d28d9;          /* roxo principal (metálico) */
+      --violet-2:#7c3aed;        /* variação */
+      --violet-3:#a78bfa;        /* highlight */
+      --text:#f5f5ff;            /* texto */
+      --muted:#c8c3d8;           /* texto secundário */
+      --stroke:rgba(255,255,255,.18);
+      --stroke-2:rgba(255,255,255,.12);
+      --ring:rgba(167,139,250,.45);
+      --shadow:0 40px 100px rgba(0,0,0,.6);
+    }
 
-/* 🏷️ CUPOM */
-.coupon{
-  margin:24px 0 12px;padding:20px 18px;border-radius:20px;
-  background:linear-gradient(145deg,rgba(155,240,255,.18),rgba(99,179,255,.08));
-  border:1px solid rgba(255,255,255,.18);
-  box-shadow:inset 0 0 15px rgba(255,255,255,.05);
-}
-.coupon-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap}
-.coupon-header h2{font-size:1rem;font-weight:700;margin:0;color:var(--accent-2);display:flex;align-items:center;gap:6px}
-.coupon strong{font-size:1.4rem;font-weight:900;color:#dffcff;text-shadow:0 0 8px rgba(155,240,255,.6)}
-.copy{appearance:none;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:12px;color:var(--text);font-weight:800;padding:10px 16px;cursor:pointer;transition:all .25s ease}
-.copy:hover{box-shadow:0 0 15px rgba(155,240,255,.4)}
-.copy.success{background:linear-gradient(135deg,rgba(155,240,255,.25),rgba(99,179,255,.15));box-shadow:0 0 25px rgba(155,240,255,.6);color:#eafcff}
+    *,*:before,*:after{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial;
+      background:
+        radial-gradient(1200px 700px at 15% -10%, rgba(167,139,250,.18), transparent 60%),
+        radial-gradient(1200px 700px at 110% 0%, rgba(124,58,237,.16), transparent 60%),
+        linear-gradient(180deg,var(--bg-1),var(--bg-2));
+      overflow-x:hidden;
+    }
 
-/* LINKS */
-.links{margin-top:22px;display:grid;gap:14px}
-.btn{background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.18);padding:18px;border-radius:18px;color:var(--text);font-weight:900;text-decoration:none;text-align:center;backdrop-filter:blur(10px) saturate(130%)}
-.btn:hover{box-shadow:0 0 0 6px var(--ring)}
-.footer{margin-top:20px;text-align:center;color:var(--muted);font-size:.92rem}
-</style>
+    /* ======= Plano de fundo com vídeo ======= */
+    .stage{position:fixed; inset:0; overflow:hidden; z-index:-3}
+    .bg-video{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+      filter:brightness(.55) saturate(1.06) contrast(1.05)}
+    .overlay{position:absolute; inset:0; background:
+      radial-gradient(70% 80% at 50% -10%, rgba(255,255,255,.08), transparent 60%),
+      linear-gradient(180deg, rgba(0,0,0,.35), transparent 35%, rgba(0,0,0,.55));}
+
+    /* ======= reflexos líquidos “metal” ======= */
+    .sheen{position:fixed; inset:0; pointer-events:none; z-index:-2; filter:blur(40px) saturate(120%); opacity:.55}
+    .s1,.s2{position:absolute; border-radius:50%; mix-blend-mode:screen}
+    .s1{width:520px;height:520px;left:8%;top:8%;
+      background:radial-gradient(circle at 30% 30%, rgba(167,139,250,.9), rgba(124,58,237,.2) 60%, transparent 70%);
+      animation:float1 19s ease-in-out infinite alternate}
+    .s2{width:560px;height:560px;right:10%;top:18%;
+      background:radial-gradient(circle at 60% 40%, rgba(124,58,237,.85), rgba(167,139,250,.15) 60%, transparent 70%);
+      animation:float2 21s ease-in-out infinite alternate}
+    @keyframes float1{0%{transform:translate3d(0,0,0) scale(1)}100%{transform:translate3d(-30px,20px,0) scale(1.08)}}
+    @keyframes float2{0%{transform:translate3d(0,0,0) scale(1)}100%{transform:translate3d(30px,-20px,0) scale(1.06)}}
+
+    /* ======= layout ======= */
+    .container{min-height:100%; display:grid; place-items:center; padding:32px}
+    .card{
+      width:min(900px,100%); position:relative; border-radius:28px;
+      background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+      border:1px solid var(--stroke);
+      backdrop-filter:blur(18px) saturate(125%);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      transform-style:preserve-3d; will-change:transform;
+    }
+    .card::before{ /* brilho interno suave */
+      content:""; position:absolute; inset:0; pointer-events:none;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.22), transparent 40%),
+        radial-gradient(120% 60% at 50% -10%, rgba(255,255,255,.20), transparent 55%);
+      mix-blend-mode:soft-light; opacity:.9;
+    }
+    .inner{position:relative; padding:28px}
+
+    /* header */
+    .header{display:grid; grid-template-columns:auto 1fr; gap:18px; align-items:center}
+    .avatar{width:108px; height:108px; border-radius:26px; overflow:hidden; position:relative;
+      border:1px solid var(--stroke-2); box-shadow:0 12px 50px rgba(0,0,0,.35)}
+    .avatar img{width:100%; height:100%; object-fit:cover; display:block; filter:saturate(112%)}
+    .shine{position:absolute; inset:0; background:linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,0) 40%); mix-blend-mode:overlay}
+    .badge{position:absolute; right:8px; bottom:8px; background:linear-gradient(135deg, var(--violet), var(--violet-3)); color:#0e0720; font-weight:900; border-radius:12px; padding:4px 10px; font-size:.75rem}
+    h1{margin:0; font-size:1.9rem; letter-spacing:.2px}
+    .sub{margin:6px 0 0; color:var(--muted)}
+
+    /* ======= Cupom — roxo metálico ======= */
+    .coupon{
+      margin:24px 0 12px; padding:20px 18px; border-radius:20px;
+      background:linear-gradient(145deg, rgba(167,139,250,.20), rgba(124,58,237,.10));
+      border:1px solid var(--stroke);
+      box-shadow:inset 0 0 18px rgba(255,255,255,.06);
+    }
+    .coupon-head{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap}
+    .coupon-title{margin:0; font-size:1rem; font-weight:800; color:var(--violet-3); letter-spacing:.5px; display:flex; align-items:center; gap:8px}
+    .coupon strong{
+      font-size:1.5rem; font-weight:900; color:#efe9ff;
+      text-shadow:0 0 10px rgba(167,139,250,.75);
+      animation:breath 3.4s ease-in-out infinite;
+    }
+    @keyframes breath{
+      0%,100%{ text-shadow:0 0 8px rgba(167,139,250,.6), 0 0 18px rgba(109,40,217,.35) }
+      50%{    text-shadow:0 0 14px rgba(167,139,250,.9), 0 0 28px rgba(124,58,237,.55) }
+    }
+    .coupon a{color:inherit; text-decoration:none; opacity:.9; border-bottom:1px solid rgba(255,255,255,.14)}
+    .copy{
+      appearance:none; cursor:pointer;
+      background:linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.05));
+      color:var(--text); border:1px solid var(--stroke); border-radius:12px;
+      font-weight:900; padding:10px 16px; transition:box-shadow .25s ease, transform .06s ease;
+      backdrop-filter:blur(10px) saturate(135%);
+    }
+    .copy:hover{ box-shadow:0 0 0 6px var(--ring) }
+    .copy:active{ transform:translateY(1px) }
+    .copy.success{
+      background:linear-gradient(135deg, rgba(167,139,250,.25), rgba(124,58,237,.15));
+      box-shadow:0 0 0 6px var(--ring), 0 0 28px rgba(167,139,250,.6);
+      color:#fff;
+    }
+
+    /* ======= Links ======= */
+    .links{margin-top:22px; display:grid; gap:14px}
+    .btn{
+      position:relative;
+      display:grid; grid-template-columns:32px 1fr auto; gap:14px; align-items:center;
+      width:100%; text-decoration:none; color:var(--text);
+      background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.05));
+      border:1px solid var(--stroke); padding:18px 18px; border-radius:18px; font-weight:900;
+      letter-spacing:.2px; overflow:hidden;
+      backdrop-filter:blur(10px) saturate(130%);
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.02), 0 14px 40px rgba(0,0,0,.28);
+      transform:translateZ(20px);
+    }
+    .btn::before{content:""; position:absolute; inset:-1px; border-radius:inherit;
+      background:linear-gradient(180deg, rgba(255,255,255,.28), transparent 35%); mix-blend-mode:soft-light; pointer-events:none}
+    .btn:hover{ box-shadow:0 0 0 6px var(--ring), 0 14px 50px rgba(109,40,217,.35) }
+    .tag{font-size:.82rem; color:var(--muted); font-weight:800}
+    .footer{margin:22px 4px 8px; text-align:center; color:var(--muted); font-size:.92rem}
+
+    /* tilt/parallax em desktop */
+    @media (hover:hover){
+      .card{transition:transform .18s ease}
+      .card.tilt{transform:perspective(1200px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
+    }
+    @media (max-width:480px){
+      .avatar{width:96px;height:96px;border-radius:22px}
+      h1{font-size:1.7rem}
+    }
+  </style>
 </head>
 <body>
-<div class="stage" aria-hidden="true">
-  <video class="bg-video" id="bgvid" autoplay muted loop playsinline preload="auto" poster="assets/poster.jpg">
-    <source src="assets/bg.mp4" type="video/mp4" />
-  </video>
-  <div class="overlay"></div>
-</div>
-
-<main class="card">
-  <section class="header">
-    <div class="avatar"><img src="assets/avatar.jpg" alt="Foto Munhoz Running"></div>
-    <div><h1>Munhoz Running</h1><p class="sub">Links oficiais • treinos e motivação</p></div>
-  </section>
-
-  <div class="coupon">
-    <div class="coupon-header">
-      <h2>🏷️ Cupom Exclusivo</h2>
-      <button class="copy" id="copy-coupon" type="button">Copiar</button>
-    </div>
-    <span>Use o código <strong id="coupon-code">PEDRO15</strong> na loja parceira <a href="https://www.instagram.com/carbri.br" style="color:inherit;text-decoration:none;opacity:.85">@carbri.br</a></span>
+  <!-- Fundo com vídeo -->
+  <div class="stage" aria-hidden="true">
+    <video class="bg-video" id="bgvid" autoplay muted loop playsinline preload="auto" poster="assets/poster.jpg">
+      <source src="assets/bg.webm" type="video/webm" />
+      <source src="assets/bg.mp4" type="video/mp4" />
+    </video>
+    <div class="overlay"></div>
   </div>
 
-  <nav class="links">
-    <a class="btn" href="https://www.instagram.com/p.munhozz" target="_blank">Instagram principal ↗</a>
-    <a class="btn" href="https://www.instagram.com/cold.running" target="_blank">Cold Running 🧊</a>
-    <a class="btn" href="https://strava.app.link/k2bt4KNneYb" target="_blank">Strava 🏃‍♂️</a>
-    <a class="btn" href="https://www.tiktok.com/@munhozzrunning" target="_blank">TikTok 🎬</a>
-    <a class="btn" href="https://www.instagram.com/carbri.br" target="_blank">Loja Parceira (Carbri) 🛒</a>
-  </nav>
+  <!-- Reflexos líquidos -->
+  <div class="sheen" aria-hidden="true">
+    <div class="s1" data-depth="0.03"></div>
+    <div class="s2" data-depth="0.06"></div>
+  </div>
 
-  <p class="footer">Apoio: <a href="https://www.instagram.com/carbri.br" target="_blank" style="color:inherit;text-decoration:none">@carbri.br</a></p>
+  <div class="container">
+    <main class="card" id="card">
+      <div class="inner">
+        <section class="header">
+          <div class="avatar">
+            <img src="assets/avatar.jpg" alt="Foto de perfil do Munhoz Running"/>
+            <span class="shine"></span>
+            <span class="badge">RUN</span>
+          </div>
+          <div>
+            <h1>Munhoz Running</h1>
+            <p class="sub">Links oficiais • treinos e motivação</p>
+          </div>
+        </section>
 
-  <ul id="checks" style="margin-top:20px;font-size:.85rem;color:var(--muted);list-style:none;padding:0"></ul>
-</main>
+        <!-- Cupom -->
+        <div class="coupon" data-coupon="PEDRO15">
+          <div class="coupon-head">
+            <h2 class="coupon-title">🏷️ Cupom Exclusivo</h2>
+            <button class="copy" id="copy-coupon" type="button">Copiar</button>
+          </div>
+          <span>Use o código <strong id="coupon-code">PEDRO15</strong> na loja parceira
+            <a href="https://www.instagram.com/carbri.br" target="_blank" rel="noopener">@carbri.br</a></span>
+        </div>
 
-<script>
-(async()=>{
-  const v=document.getElementById('bgvid');
-  if(v){try{await v.play();}catch(e){const u=()=>{v.play().catch(()=>{});document.removeEventListener('pointerdown',u);};document.addEventListener('pointerdown',u,{once:true});}}
-})();
-const btn=document.getElementById('copy-coupon');
-const code=document.getElementById('coupon-code');
-if(btn&&code){
-  btn.addEventListener('click',async()=>{
-    try{await navigator.clipboard.writeText(code.textContent.trim());}catch(e){}
-    btn.classList.add('success');
-    const prev=btn.textContent;btn.textContent='Copiado!';
-    setTimeout(()=>{btn.classList.remove('success');btn.textContent=prev;},1400);
-  });
-}
+        <!-- Links -->
+        <nav class="links" aria-label="Links principais">
+          <a class="btn" href="https://www.instagram.com/p.munhozz" target="_blank" rel="noopener">Instagram principal ↗</a>
+          <a class="btn" href="https://www.instagram.com/cold.running" target="_blank" rel="noopener">Cold Running 🧊</a>
+          <a class="btn" href="https://strava.app.link/k2bt4KNneYb" target="_blank" rel="noopener">Strava 🏃‍♂️</a>
+          <a class="btn" href="https://www.tiktok.com/@munhozzrunning" target="_blank" rel="noopener">TikTok 🎬</a>
+          <a class="btn" href="https://www.instagram.com/carbri.br" target="_blank" rel="noopener">Loja Parceira (Carbri) 🛒</a>
+        </nav>
 
-// quick asset check
-(async()=>{
-  const files=['assets/avatar.jpg','assets/poster.jpg','assets/bg.mp4'];
-  const ul=document.getElementById('checks');
-  for(const f of files){
-    const ok=await fetch(f+'?v='+Date.now(),{method:'HEAD'}).then(r=>r.ok).catch(()=>false);
-    const li=document.createElement('li');
-    li.textContent=(ok?'✅ ':'❌ ')+f;
-    ul.appendChild(li);
-  }
-})();
-</script>
+        <p class="footer">Apoio: <a href="https://www.instagram.com/carbri.br" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">@carbri.br</a></p>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Autoplay fallback (webviews)
+    (async()=>{
+      const v=document.getElementById('bgvid');
+      if(!v) return;
+      try{ await v.play(); }
+      catch(e){
+        const unlock=async()=>{ try{await v.play()}catch(_){}
+          document.removeEventListener('pointerdown',unlock);
+          document.removeEventListener('touchstart',unlock);
+        };
+        document.addEventListener('pointerdown',unlock,{once:true});
+        document.addEventListener('touchstart',unlock,{once:true,passive:true});
+      }
+    })();
+
+    // Copiar cupom com efeito
+    (function(){
+      const btn=document.getElementById('copy-coupon');
+      const code=document.getElementById('coupon-code');
+      if(!btn||!code) return;
+      btn.addEventListener('click',async()=>{
+        try{ await navigator.clipboard.writeText(code.textContent.trim()); }catch(e){}
+        btn.classList.add('success');
+        const prev=btn.textContent; btn.textContent='Copiado!';
+        setTimeout(()=>{ btn.classList.remove('success'); btn.textContent=prev; },1300);
+      });
+    })();
+
+    // Tilt/parallax por mouse (desktop)
+    (function(){
+      const card=document.getElementById('card'); if(!card) return;
+      const max=6;
+      function onMove(e){
+        const r=card.getBoundingClientRect();
+        const px=(e.clientX-r.left)/r.width-.5;
+        const py=(e.clientY-r.top)/r.height-.5;
+        card.style.setProperty('--ry', (-px*max)+'deg');
+        card.style.setProperty('--rx', (py*max)+'deg');
+        card.classList.add('tilt');
+      }
+      function onLeave(){ card.classList.remove('tilt'); card.style.setProperty('--ry','0deg'); card.style.setProperty('--rx','0deg'); }
+      if(matchMedia('(hover:hover)').matches){
+        card.addEventListener('mousemove', onMove);
+        card.addEventListener('mouseleave', onLeave);
+      }
+    })();
+
+    // Parallax por giroscópio (mobile)
+    (function(){
+      const layers=[...document.querySelectorAll('.sheen .s1, .sheen .s2')];
+      let enabled=false;
+      const apply=(x,y)=>{
+        for(const L of layers){
+          const depth = L.classList.contains('s2') ? 0.06 : 0.03;
+          const tx = x*depth*30; const ty = y*depth*30;
+          L.style.transform=`translate3d(${tx}px, ${ty}px, 0)`;
+        }
+      };
+      // fallback por scroll + touch
+      window.addEventListener('touchmove', e=>{
+        const t=e.touches[0];
+        const x=(t.clientX/window.innerWidth - .5)*2;
+        const y=(t.clientY/window.innerHeight - .5)*2;
+        apply(x,y);
+      }, {passive:true});
+      // giroscópio (iOS pede permissão)
+      function enableGyro(){
+        if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function'){
+          DeviceMotionEvent.requestPermission().then(resp=>{
+            if(resp==='granted'){ enabled=true; }
+          }).catch(()=>{});
+        } else { enabled=true; }
+      }
+      // ativa ao primeiro toque
+      document.addEventListener('pointerdown', enableGyro, {once:true});
+      window.addEventListener('deviceorientation', (e)=>{
+        if(!enabled || e.beta===null || e.gamma===null) return;
+        const x = (e.gamma || 0) / 45;  // -45..45
+        const y = (e.beta  || 0) / 45;  // -45..45
+        apply(x,y);
+      });
+    })();
+  </script>
 </body>
 </html>
