@@ -70,4 +70,183 @@
     .avatar{width:108px; height:108px; border-radius:26px; overflow:hidden; position:relative; border:1px solid rgba(255,255,255,.10); box-shadow:0 10px 40px rgba(0,0,0,.35)}
     .avatar img{width:100%; height:100%; object-fit:cover; display:block; filter:saturate(112%)}
     .shine{position:absolute; inset:0; background: linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,0) 40%); mix-blend-mode:overlay}
-    .badge{position:absolute; right:8px; bottom:8px; background:linear-gradient(135deg, var(--accent), var(--accent-2)); color:#04111f; font-weight:900; border-radius:12px;
+    .badge{position:absolute; right:8px; bottom:8px; background:linear-gradient(135deg, var(--accent), var(--accent-2)); color:#04111f; font-weight:900; border-radius:12px; padding:4px 10px; font-size:.75rem}
+    h1{margin:0; font-size:1.9rem}
+    .sub{margin:6px 0 0; color:var(--muted)}
+
+    /* 💎 Cupom refinado */
+    .coupon{
+      margin:24px 0 12px;
+      padding:20px 18px;
+      border-radius:20px;
+      background:linear-gradient(145deg, rgba(155,240,255,.18), rgba(99,179,255,.08));
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow:inset 0 0 15px rgba(255,255,255,.05);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      position:relative;
+      overflow:hidden;
+    }
+    .coupon::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(135deg, rgba(255,255,255,.25), rgba(255,255,255,0) 70%);
+      opacity:.25;
+      pointer-events:none;
+    }
+    .coupon span, .coupon strong, .coupon a{
+      font-weight:600;
+      text-decoration:none;
+      color:var(--text);
+    }
+    .coupon strong{
+      font-size:1.4rem;
+      font-weight:900;
+      color:#dffcff;
+      text-shadow:0 0 8px rgba(155,240,255,.6);
+    }
+    .coupon a{
+      opacity:.85;
+      border-bottom:1px solid rgba(255,255,255,.15);
+      transition:opacity .2s;
+    }
+    .coupon a:hover{opacity:1}
+    .coupon-header{
+      display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap;
+    }
+    .coupon-header h2{
+      font-size:1rem; font-weight:700; margin:0; color:var(--accent-2);
+      letter-spacing:.5px; display:flex; align-items:center; gap:6px;
+    }
+    .copy{
+      appearance:none;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:12px;
+      color:var(--text);
+      font-weight:800;
+      padding:10px 16px;
+      cursor:pointer;
+      transition:all .25s ease;
+    }
+    .copy:hover{box-shadow:0 0 15px rgba(155,240,255,.4)}
+    .copy:active{transform:scale(.96)}
+    .copy.success{
+      background:linear-gradient(135deg, rgba(155,240,255,.25), rgba(99,179,255,.15));
+      box-shadow:0 0 25px rgba(155,240,255,.6);
+      color:#eafcff;
+    }
+
+    .links{margin-top:22px; display:grid; gap:14px}
+    .btn{
+      position:relative;
+      display:grid;
+      grid-template-columns:32px 1fr auto;
+      gap:14px;
+      align-items:center;
+      width:100%;
+      text-decoration:none;
+      color:var(--text);
+      background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+      border:1px solid rgba(255,255,255,.18);
+      padding:18px 18px;
+      border-radius:18px;
+      font-weight:900;
+      letter-spacing:.2px;
+      backdrop-filter:blur(10px) saturate(130%);
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.02), 0 10px 30px rgba(0,0,0,.25);
+    }
+    .btn:before{
+      content:"";
+      position:absolute; inset:-1px; border-radius:inherit;
+      background:linear-gradient(180deg, rgba(255,255,255,.25), transparent 35%);
+      mix-blend-mode:soft-light; pointer-events:none;
+    }
+    .btn:hover{box-shadow:0 0 0 6px var(--ring)}
+    .tag{font-size:.82rem; color:var(--muted); font-weight:800}
+    .icon{width:26px; height:26px; opacity:.95}
+    .chev{opacity:.5}
+    .footer{margin:22px 4px 8px; text-align:center; color:var(--muted); font-size:.92rem}
+  </style>
+</head>
+<body>
+  <div class="stage" aria-hidden="true">
+    <video class="bg-video" id="bgvid" autoplay muted loop playsinline preload="auto" poster="assets/poster.jpg">
+      <source src="assets/bg.webm" type="video/webm" />
+      <source src="assets/bg.mp4" type="video/mp4" />
+    </video>
+    <div class="overlay"></div>
+  </div>
+
+  <div class="blobs" aria-hidden="true">
+    <div class="blob"></div>
+    <div class="blob b2"></div>
+  </div>
+
+  <div class="container">
+    <main class="card" id="card">
+      <div class="card-inner">
+        <section class="header">
+          <div class="avatar">
+            <img src="assets/avatar.jpg" alt="Foto de perfil do Munhoz Running"/>
+            <span class="shine"></span>
+            <span class="badge">RUN</span>
+          </div>
+          <div>
+            <h1>Munhoz Running</h1>
+            <p class="sub">Links oficiais • treinos, motivação e benefícios da parceira</p>
+          </div>
+        </section>
+
+        <div class="coupon" data-coupon="PEDRO15">
+          <div class="coupon-header">
+            <h2>🏷️ Cupom Exclusivo</h2>
+            <button class="copy" id="copy-coupon" type="button">Copiar</button>
+          </div>
+          <span>Use o código <strong id="coupon-code">PEDRO15</strong> na loja parceira <a href="https://www.instagram.com/carbri.br" target="_blank" rel="noopener">@carbri.br</a></span>
+        </div>
+
+        <nav class="links">
+          <a class="btn" href="https://www.instagram.com/p.munhozz" target="_blank">Instagram principal ↗</a>
+          <a class="btn" href="https://www.instagram.com/cold.running" target="_blank">Cold Running 🧊</a>
+          <a class="btn" href="https://strava.app.link/k2bt4KNneYb" target="_blank">Strava 🏃‍♂️</a>
+          <a class="btn" href="https://www.tiktok.com/@munhozzrunning" target="_blank">TikTok 🎬</a>
+          <a class="btn" href="https://www.instagram.com/carbri.br" target="_blank">Loja Parceira (Carbri) 🛒</a>
+        </nav>
+
+        <p class="footer">
+          Apoio: <a href="https://www.instagram.com/carbri.br" target="_blank">@carbri.br</a>
+        </p>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // autoplay fallback
+    (async()=>{
+      const v=document.getElementById('bgvid');
+      if(!v) return;
+      try{ await v.play(); }
+      catch(e){
+        const unlock=async()=>{ try{await v.play()}catch(_){}; document.removeEventListener('pointerdown',unlock); };
+        document.addEventListener('pointerdown',unlock,{once:true});
+      }
+    })();
+
+    // copy coupon with animation
+    const btn=document.getElementById('copy-coupon');
+    const code=document.getElementById('coupon-code');
+    if(btn && code){
+      btn.addEventListener('click',async()=>{
+        try{await navigator.clipboard.writeText(code.textContent.trim());}catch(e){}
+        btn.classList.add('success');
+        const prev=btn.textContent;
+        btn.textContent='Copiado!';
+        setTimeout(()=>{btn.classList.remove('success');btn.textContent=prev;},1400);
+      });
+    }
+  </script>
+</body>
+</html>
