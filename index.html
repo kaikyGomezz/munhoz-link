@@ -1,252 +1,121 @@
 <!doctype html>
 <html lang="pt-br">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Munhoz Running — Links</title>
-  <meta name="description" content="Todos os links oficiais do Munhoz Running: Instagram, Strava, TikTok e loja parceira." />
-  <meta property="og:title" content="Munhoz Running — Links" />
-  <meta property="og:description" content="Siga, corra junto e aproveite os benefícios da parceira." />
-  <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#0a0e16" />
-  <style>
-    :root{
-      --bg-1:#06080f;
-      --bg-2:#0a0e16;
-      --text:#eaf2ff;
-      --muted:#a9b2c8;
-      --accent:#63b3ff;
-      --accent-2:#9bf0ff;
-      --ring:rgba(147,197,253,.45);
-      --shadow:0 30px 80px rgba(0,0,0,.55);
-    }
-    *,*:before,*:after{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      color:var(--text);
-      font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial;
-      background: radial-gradient(1600px 800px at 15% -10%, rgba(99,179,255,.20), transparent 55%),
-                  radial-gradient(1400px 700px at 115% 10%, rgba(155,240,255,.16), transparent 55%),
-                  linear-gradient(180deg,var(--bg-1),var(--bg-2));
-      overflow-x:hidden;
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Munhoz Running — Links</title>
+<meta name="theme-color" content="#0a0e16" />
+<style>
+:root{
+  --bg-1:#06080f;--bg-2:#0a0e16;
+  --text:#eaf2ff;--muted:#a9b2c8;
+  --accent:#63b3ff;--accent-2:#9bf0ff;
+  --ring:rgba(147,197,253,.45);
+}
+*,*:before,*:after{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial;
+  background:radial-gradient(1600px 800px at 15% -10%,rgba(99,179,255,.20),transparent 55%),
+             radial-gradient(1400px 700px at 115% 10%,rgba(155,240,255,.16),transparent 55%),
+             linear-gradient(180deg,var(--bg-1),var(--bg-2));
+  overflow-x:hidden;display:grid;place-items:center;min-height:100vh;
+}
+.stage{position:fixed;inset:0;overflow:hidden;z-index:-3}
+.bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.55) saturate(1.02) contrast(1.05)}
+.overlay{position:absolute;inset:0;background:radial-gradient(60% 80% at 50% -10%,rgba(255,255,255,.08),transparent 60%),linear-gradient(180deg,rgba(0,0,0,.35),transparent 30%,rgba(0,0,0,.55))}
+.card{width:min(880px,100%);border-radius:28px;background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(18px) saturate(120%);padding:28px;box-shadow:0 30px 80px rgba(0,0,0,.55)}
+.header{display:flex;align-items:center;gap:18px}
+.avatar{width:108px;height:108px;border-radius:26px;overflow:hidden;border:1px solid rgba(255,255,255,.10)}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.badge{position:absolute;right:8px;bottom:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#04111f;font-weight:900;border-radius:12px;padding:4px 10px;font-size:.75rem}
+h1{margin:0;font-size:1.9rem}
+.sub{margin:6px 0 0;color:var(--muted)}
 
-    .stage{position:fixed; inset:0; overflow:hidden; z-index:-3}
-    .bg-video{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:brightness(.55) saturate(1.02) contrast(1.05)}
-    .overlay{position:absolute; inset:0; background:
-      radial-gradient(60% 80% at 50% -10%, rgba(255,255,255,.08), transparent 60%),
-      linear-gradient(180deg, rgba(0,0,0,.35), transparent 30%, rgba(0,0,0,.55));}
+/* 🏷️ CUPOM */
+.coupon{
+  margin:24px 0 12px;padding:20px 18px;border-radius:20px;
+  background:linear-gradient(145deg,rgba(155,240,255,.18),rgba(99,179,255,.08));
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:inset 0 0 15px rgba(255,255,255,.05);
+}
+.coupon-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.coupon-header h2{font-size:1rem;font-weight:700;margin:0;color:var(--accent-2);display:flex;align-items:center;gap:6px}
+.coupon strong{font-size:1.4rem;font-weight:900;color:#dffcff;text-shadow:0 0 8px rgba(155,240,255,.6)}
+.copy{appearance:none;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:12px;color:var(--text);font-weight:800;padding:10px 16px;cursor:pointer;transition:all .25s ease}
+.copy:hover{box-shadow:0 0 15px rgba(155,240,255,.4)}
+.copy.success{background:linear-gradient(135deg,rgba(155,240,255,.25),rgba(99,179,255,.15));box-shadow:0 0 25px rgba(155,240,255,.6);color:#eafcff}
 
-    .blobs{position:fixed; inset:0; pointer-events:none; z-index:-2; filter: blur(40px) saturate(120%); opacity:.55}
-    .blob{position:absolute; width:520px; height:520px; left:10%; top:10%;
-      background: radial-gradient(circle at 30% 30%, rgba(155,240,255,.9), rgba(99,179,255,.2) 60%, transparent 70%);
-      animation: float1 18s ease-in-out infinite alternate; mix-blend-mode:screen}
-    .blob.b2{left:auto; right:8%; top:18%; width:560px; height:560px;
-      background: radial-gradient(circle at 60% 40%, rgba(99,179,255,.85), rgba(155,240,255,.15) 60%, transparent 70%);
-      animation: float2 20s ease-in-out infinite alternate}
-    @keyframes float1{0%{transform:translate3d(0,0,0) scale(1)}100%{transform:translate3d(-30px,20px,0) scale(1.08)}}
-    @keyframes float2{0%{transform:translate3d(0,0,0) scale(1)}100%{transform:translate3d(30px,-20px,0) scale(1.06)}}
-
-    .container{min-height:100%; display:grid; place-items:center; padding:32px}
-    .card{
-      width:min(880px,100%);
-      position:relative;
-      border-radius:28px;
-      background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.03));
-      border:1px solid rgba(255,255,255,.18);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(18px) saturate(120%);
-      overflow:hidden;
-    }
-    .card:before{
-      content:""; position:absolute; inset:0;
-      background:linear-gradient(180deg, rgba(255,255,255,.18), transparent 40%), radial-gradient(120% 60% at 50% -10%, rgba(255,255,255,.18), transparent 55%);
-      mix-blend-mode:soft-light; opacity:.9; pointer-events:none;
-    }
-    .card-inner{position:relative; padding:28px}
-
-    .header{display:grid; grid-template-columns:auto 1fr; gap:18px; align-items:center}
-    .avatar{width:108px; height:108px; border-radius:26px; overflow:hidden; position:relative; border:1px solid rgba(255,255,255,.10); box-shadow:0 10px 40px rgba(0,0,0,.35)}
-    .avatar img{width:100%; height:100%; object-fit:cover; display:block; filter:saturate(112%)}
-    .shine{position:absolute; inset:0; background: linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,0) 40%); mix-blend-mode:overlay}
-    .badge{position:absolute; right:8px; bottom:8px; background:linear-gradient(135deg, var(--accent), var(--accent-2)); color:#04111f; font-weight:900; border-radius:12px; padding:4px 10px; font-size:.75rem}
-    h1{margin:0; font-size:1.9rem}
-    .sub{margin:6px 0 0; color:var(--muted)}
-
-    /* 💎 Cupom refinado */
-    .coupon{
-      margin:24px 0 12px;
-      padding:20px 18px;
-      border-radius:20px;
-      background:linear-gradient(145deg, rgba(155,240,255,.18), rgba(99,179,255,.08));
-      border:1px solid rgba(255,255,255,.18);
-      box-shadow:inset 0 0 15px rgba(255,255,255,.05);
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      position:relative;
-      overflow:hidden;
-    }
-    .coupon::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(135deg, rgba(255,255,255,.25), rgba(255,255,255,0) 70%);
-      opacity:.25;
-      pointer-events:none;
-    }
-    .coupon span, .coupon strong, .coupon a{
-      font-weight:600;
-      text-decoration:none;
-      color:var(--text);
-    }
-    .coupon strong{
-      font-size:1.4rem;
-      font-weight:900;
-      color:#dffcff;
-      text-shadow:0 0 8px rgba(155,240,255,.6);
-    }
-    .coupon a{
-      opacity:.85;
-      border-bottom:1px solid rgba(255,255,255,.15);
-      transition:opacity .2s;
-    }
-    .coupon a:hover{opacity:1}
-    .coupon-header{
-      display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap;
-    }
-    .coupon-header h2{
-      font-size:1rem; font-weight:700; margin:0; color:var(--accent-2);
-      letter-spacing:.5px; display:flex; align-items:center; gap:6px;
-    }
-    .copy{
-      appearance:none;
-      background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.18);
-      border-radius:12px;
-      color:var(--text);
-      font-weight:800;
-      padding:10px 16px;
-      cursor:pointer;
-      transition:all .25s ease;
-    }
-    .copy:hover{box-shadow:0 0 15px rgba(155,240,255,.4)}
-    .copy:active{transform:scale(.96)}
-    .copy.success{
-      background:linear-gradient(135deg, rgba(155,240,255,.25), rgba(99,179,255,.15));
-      box-shadow:0 0 25px rgba(155,240,255,.6);
-      color:#eafcff;
-    }
-
-    .links{margin-top:22px; display:grid; gap:14px}
-    .btn{
-      position:relative;
-      display:grid;
-      grid-template-columns:32px 1fr auto;
-      gap:14px;
-      align-items:center;
-      width:100%;
-      text-decoration:none;
-      color:var(--text);
-      background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
-      border:1px solid rgba(255,255,255,.18);
-      padding:18px 18px;
-      border-radius:18px;
-      font-weight:900;
-      letter-spacing:.2px;
-      backdrop-filter:blur(10px) saturate(130%);
-      box-shadow:inset 0 0 0 1px rgba(255,255,255,.02), 0 10px 30px rgba(0,0,0,.25);
-    }
-    .btn:before{
-      content:"";
-      position:absolute; inset:-1px; border-radius:inherit;
-      background:linear-gradient(180deg, rgba(255,255,255,.25), transparent 35%);
-      mix-blend-mode:soft-light; pointer-events:none;
-    }
-    .btn:hover{box-shadow:0 0 0 6px var(--ring)}
-    .tag{font-size:.82rem; color:var(--muted); font-weight:800}
-    .icon{width:26px; height:26px; opacity:.95}
-    .chev{opacity:.5}
-    .footer{margin:22px 4px 8px; text-align:center; color:var(--muted); font-size:.92rem}
-  </style>
+/* LINKS */
+.links{margin-top:22px;display:grid;gap:14px}
+.btn{background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.18);padding:18px;border-radius:18px;color:var(--text);font-weight:900;text-decoration:none;text-align:center;backdrop-filter:blur(10px) saturate(130%)}
+.btn:hover{box-shadow:0 0 0 6px var(--ring)}
+.footer{margin-top:20px;text-align:center;color:var(--muted);font-size:.92rem}
+</style>
 </head>
 <body>
-  <div class="stage" aria-hidden="true">
-    <video class="bg-video" id="bgvid" autoplay muted loop playsinline preload="auto" poster="assets/poster.jpg">
-      <source src="assets/bg.webm" type="video/webm" />
-      <source src="assets/bg.mp4" type="video/mp4" />
-    </video>
-    <div class="overlay"></div>
+<div class="stage" aria-hidden="true">
+  <video class="bg-video" id="bgvid" autoplay muted loop playsinline preload="auto" poster="assets/poster.jpg">
+    <source src="assets/bg.mp4" type="video/mp4" />
+  </video>
+  <div class="overlay"></div>
+</div>
+
+<main class="card">
+  <section class="header">
+    <div class="avatar"><img src="assets/avatar.jpg" alt="Foto Munhoz Running"></div>
+    <div><h1>Munhoz Running</h1><p class="sub">Links oficiais • treinos e motivação</p></div>
+  </section>
+
+  <div class="coupon">
+    <div class="coupon-header">
+      <h2>🏷️ Cupom Exclusivo</h2>
+      <button class="copy" id="copy-coupon" type="button">Copiar</button>
+    </div>
+    <span>Use o código <strong id="coupon-code">PEDRO15</strong> na loja parceira <a href="https://www.instagram.com/carbri.br" style="color:inherit;text-decoration:none;opacity:.85">@carbri.br</a></span>
   </div>
 
-  <div class="blobs" aria-hidden="true">
-    <div class="blob"></div>
-    <div class="blob b2"></div>
-  </div>
+  <nav class="links">
+    <a class="btn" href="https://www.instagram.com/p.munhozz" target="_blank">Instagram principal ↗</a>
+    <a class="btn" href="https://www.instagram.com/cold.running" target="_blank">Cold Running 🧊</a>
+    <a class="btn" href="https://strava.app.link/k2bt4KNneYb" target="_blank">Strava 🏃‍♂️</a>
+    <a class="btn" href="https://www.tiktok.com/@munhozzrunning" target="_blank">TikTok 🎬</a>
+    <a class="btn" href="https://www.instagram.com/carbri.br" target="_blank">Loja Parceira (Carbri) 🛒</a>
+  </nav>
 
-  <div class="container">
-    <main class="card" id="card">
-      <div class="card-inner">
-        <section class="header">
-          <div class="avatar">
-            <img src="assets/avatar.jpg" alt="Foto de perfil do Munhoz Running"/>
-            <span class="shine"></span>
-            <span class="badge">RUN</span>
-          </div>
-          <div>
-            <h1>Munhoz Running</h1>
-            <p class="sub">Links oficiais • treinos, motivação e benefícios da parceira</p>
-          </div>
-        </section>
+  <p class="footer">Apoio: <a href="https://www.instagram.com/carbri.br" target="_blank" style="color:inherit;text-decoration:none">@carbri.br</a></p>
 
-        <div class="coupon" data-coupon="PEDRO15">
-          <div class="coupon-header">
-            <h2>🏷️ Cupom Exclusivo</h2>
-            <button class="copy" id="copy-coupon" type="button">Copiar</button>
-          </div>
-          <span>Use o código <strong id="coupon-code">PEDRO15</strong> na loja parceira <a href="https://www.instagram.com/carbri.br" target="_blank" rel="noopener">@carbri.br</a></span>
-        </div>
+  <ul id="checks" style="margin-top:20px;font-size:.85rem;color:var(--muted);list-style:none;padding:0"></ul>
+</main>
 
-        <nav class="links">
-          <a class="btn" href="https://www.instagram.com/p.munhozz" target="_blank">Instagram principal ↗</a>
-          <a class="btn" href="https://www.instagram.com/cold.running" target="_blank">Cold Running 🧊</a>
-          <a class="btn" href="https://strava.app.link/k2bt4KNneYb" target="_blank">Strava 🏃‍♂️</a>
-          <a class="btn" href="https://www.tiktok.com/@munhozzrunning" target="_blank">TikTok 🎬</a>
-          <a class="btn" href="https://www.instagram.com/carbri.br" target="_blank">Loja Parceira (Carbri) 🛒</a>
-        </nav>
+<script>
+(async()=>{
+  const v=document.getElementById('bgvid');
+  if(v){try{await v.play();}catch(e){const u=()=>{v.play().catch(()=>{});document.removeEventListener('pointerdown',u);};document.addEventListener('pointerdown',u,{once:true});}}
+})();
+const btn=document.getElementById('copy-coupon');
+const code=document.getElementById('coupon-code');
+if(btn&&code){
+  btn.addEventListener('click',async()=>{
+    try{await navigator.clipboard.writeText(code.textContent.trim());}catch(e){}
+    btn.classList.add('success');
+    const prev=btn.textContent;btn.textContent='Copiado!';
+    setTimeout(()=>{btn.classList.remove('success');btn.textContent=prev;},1400);
+  });
+}
 
-        <p class="footer">
-          Apoio: <a href="https://www.instagram.com/carbri.br" target="_blank">@carbri.br</a>
-        </p>
-      </div>
-    </main>
-  </div>
-
-  <script>
-    // autoplay fallback
-    (async()=>{
-      const v=document.getElementById('bgvid');
-      if(!v) return;
-      try{ await v.play(); }
-      catch(e){
-        const unlock=async()=>{ try{await v.play()}catch(_){}; document.removeEventListener('pointerdown',unlock); };
-        document.addEventListener('pointerdown',unlock,{once:true});
-      }
-    })();
-
-    // copy coupon with animation
-    const btn=document.getElementById('copy-coupon');
-    const code=document.getElementById('coupon-code');
-    if(btn && code){
-      btn.addEventListener('click',async()=>{
-        try{await navigator.clipboard.writeText(code.textContent.trim());}catch(e){}
-        btn.classList.add('success');
-        const prev=btn.textContent;
-        btn.textContent='Copiado!';
-        setTimeout(()=>{btn.classList.remove('success');btn.textContent=prev;},1400);
-      });
-    }
-  </script>
+// quick asset check
+(async()=>{
+  const files=['assets/avatar.jpg','assets/poster.jpg','assets/bg.mp4'];
+  const ul=document.getElementById('checks');
+  for(const f of files){
+    const ok=await fetch(f+'?v='+Date.now(),{method:'HEAD'}).then(r=>r.ok).catch(()=>false);
+    const li=document.createElement('li');
+    li.textContent=(ok?'✅ ':'❌ ')+f;
+    ul.appendChild(li);
+  }
+})();
+</script>
 </body>
 </html>
